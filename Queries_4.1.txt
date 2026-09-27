@@ -1,0 +1,43 @@
+% Two plain values: unify successfully.
+?- house = house.
+true.
+
+% Two plain values: different, not unify.
+?- house = abc.
+false.
+
+% Variable and a value: C is instantiated and takes the value a.
+?- edge(a,b) = edge(C,b).
+C = a.
+
+% Variable and a value: C takes a and B takes d.
+?- edge(a,d) = edge(C,B).
+C = a,
+B = d.
+
+% Variable and a value: C is a and B is d.
+?- edge(C,B) = edge(a,d).
+C = a,
+B = d.
+
+% Variable and any term: A takes a, B takes the whole structure f(g,h).
+?- edge(A,f(g,h)) = edge(a,B).
+A = a,
+B = f(g, h).
+
+% Variable and a value: A would need to hold both b and c, which is impossible.
+?- edge(A,A) = edge(b,c).
+false.
+
+% Variable and a value: same variable, so A takes the value b.
+?- edge(A,A) = edge(b,b).
+A = b.
+
+% Variable and another variable: A and B become linked, then B takes the value f.
+?- A = B, B = f.
+A = B, B = f.
+
+% Variable and another variable: A and B are linked and become f, but A cannot also become e.
+?- A = B, B = f, A = e.
+false.
+
